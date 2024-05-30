@@ -20,13 +20,22 @@ public class Clavier extends TilePane{
     private List<Button> clavier;
 
     /**
-     * constructeur du clavier
+     * constructeur du claviernouveau rôle
      * @param touches une chaine de caractères qui contient les lettres à mettre sur les touches
      * @param actionTouches le contrôleur des touches
      * @param tailleLigne nombre de touches par ligne
      */
     public Clavier(String touches, EventHandler<ActionEvent> actionTouches) {
-        // A implémenter
+        super();
+        for(int i=0; i<touches.length(); i++){
+            Button bouton = new Button(touches.substring(i, i+1));
+            bouton.setPrefSize(50, 50);
+            bouton.setOnAction(actionTouches);
+            bouton.setShape(new Circle(3));
+
+            this.clavier.add(bouton);
+            this.getChildren().add(bouton);
+        }
     }
 
     /**
@@ -34,6 +43,12 @@ public class Clavier extends TilePane{
      * @param touchesDesactivees une chaine de caractères contenant la liste des touches désactivées
      */
     public void desactiveTouches(Set<String> touchesDesactivees){
-        // A implémenter
+        for(String touche : touchesDesactivees){
+            for(Button toucheClavier : this.clavier){
+                if (toucheClavier.getText().equals(touche)){
+                    toucheClavier.setDisable(true);
+                }
+            }
+        }
     }
 }

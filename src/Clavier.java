@@ -11,7 +11,7 @@ import java.util.Set;
 
 /**
  * Génère la vue d'un clavier et associe le contrôleur aux touches
- * le choix ici est d'un faire un héritié d'un TilePane
+ * le choix ici est d'un faire un héritier d'un TilePane
  */
 public class Clavier extends TilePane{
     /**

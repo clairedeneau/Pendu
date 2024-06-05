@@ -10,13 +10,9 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
-import javafx.scene.control.Tooltip;
-import javafx.scene.control.TitledPane;
-import javafx.scene.layout.Region;
 import javafx.scene.text.TextAlignment;
-import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonBar.ButtonData ;
-import javafx.scene.control.ButtonType ;
+
 import java.util.List;
 import java.util.Arrays;
 import java.io.File;
@@ -85,6 +81,22 @@ public class Pendu extends Application {
     /**
      * initialise les attributs (créer le modèle, charge les images, crée le chrono ...)
      */
+    private boolean partieEnCours;
+    
+    /**
+     * @return si la partie est en cours ou non
+     */
+    public boolean getPartieEnCours(){
+        return this.partieEnCours;
+    }
+
+    /**
+     * débute ou arrête la partie
+     */
+    public void setPartieEnCours(boolean bool){
+        this.partieEnCours=bool;
+    }
+
     @Override
     public void init() {
         this.modelePendu = new MotMystere("/usr/share/dict/french", 3, 10, MotMystere.FACILE, 10);

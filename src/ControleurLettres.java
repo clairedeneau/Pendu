@@ -2,6 +2,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import java.util.HashSet;
 
 /**
  * Controleur du clavier
@@ -18,11 +19,13 @@ public class ControleurLettres implements EventHandler<ActionEvent> {
     private Pendu vuePendu;
 
     /**
+     * Constructeur du controlleur lettre
      * @param modelePendu modèle du jeu
      * @param vuePendu vue du jeu
      */
     ControleurLettres(MotMystere modelePendu, Pendu vuePendu){
-        // A implémenter
+        this.modelePendu=modelePendu;
+        this.vuePendu=vuePendu;
     }
 
     /**
@@ -32,6 +35,9 @@ public class ControleurLettres implements EventHandler<ActionEvent> {
      */
     @Override
     public void handle(ActionEvent actionEvent) {
-        // A implémenter
+        Button bouton = (Button) actionEvent.getSource();
+        this.modelePendu.essaiLettre(bouton.getText().charAt(0));
+        this.vuePendu.majAffichage();
+        
     }
 }

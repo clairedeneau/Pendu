@@ -63,7 +63,7 @@ public class Chronometre extends Text{
     /**
      * Permet de démarrer le chronomètre
      */
-    public void start(Stage primaryStage) {
+    public void start() {
         timeline.play();
     }
 

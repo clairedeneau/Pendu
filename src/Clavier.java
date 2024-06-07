@@ -51,4 +51,13 @@ public class Clavier extends TilePane{
             }
         }
     }
+
+    /**
+     * réactive toutes les touches du clavier
+     */
+    public void activeTouches(){
+        for (Button toucheClavier: this.clavier){
+            toucheClavier.setDisable(false);
+        }
+    }
 }

@@ -151,7 +151,7 @@ public class Pendu extends Application {
         this.pg = new ProgressBar();
         this.pg.setProgress(0);
 
-        this.chrono=new Chronometre(this);
+        this.chrono=new Chronometre();
         this.dessin=new ImageView();
 
         this.clavier=new Clavier("ABCDEFGHIJKLMNOPQRSTUVWXYZ-", new ControleurLettres(modelePendu, this));
@@ -329,7 +329,7 @@ public class Pendu extends Application {
         this.partieEnCours=true;
         this.modelePendu.setMotATrouver();
         this.clavier.activeTouches();
-        this.chrono.setTempsEcoule(0);
+        this.chrono.setTime(0);
         this.pg.setProgress(0);
 
         this.modeJeu();

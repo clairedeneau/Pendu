@@ -11,12 +11,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
-import javafx.scene.control.Tooltip;
-import javafx.scene.control.TitledPane;
 import javafx.scene.text.TextAlignment;
-import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonBar.ButtonData;
-import javafx.scene.control.ButtonType;
 import javafx.scene.text.FontWeight;
 import java.awt.image.Raster;
 import java.util.List;
@@ -101,7 +97,7 @@ public class Pendu extends Application {
 
     @Override
     public void init() {
-        this.modelePendu = new MotMystere("../french", 3, 10, MotMystere.FACILE, 10);
+        this.modelePendu = new MotMystere("src/french", 3, 10, MotMystere.FACILE, 10);
         this.lesImages = new ArrayList<Image>();
         this.chargerImages();
 
@@ -118,16 +114,18 @@ public class Pendu extends Application {
         this.panelCentral= new Pane();
 
         this.boutonParametres = new Button();
-        ImageView imageParam = new ImageView("parametres.png");
+        Image imgp = new Image("file:img/parametres.png");
+        ImageView imageParam = new ImageView(imgp);
         imageParam.setFitWidth(40);
         imageParam.setFitHeight(40);
         this.boutonParametres.setGraphic(imageParam);
+        this.boutonParametres.setOnAction(new ControleurParametre(this));
         this.boutonParametres.setTooltip(new Tooltip("Accéder aux paramètres"));
 
 
 
         this.boutonMaison = new Button();
-        ImageView imageMaison = new ImageView("home.png");
+        ImageView imageMaison = new ImageView(new Image("file:img/home.png"));
         imageMaison.setFitWidth(40);
         imageMaison.setFitHeight(40);
         this.boutonMaison.setGraphic(imageMaison);
@@ -136,7 +134,7 @@ public class Pendu extends Application {
         
 
         this.boutonInfo = new Button();
-        ImageView imageInfo = new ImageView("info.png");
+        ImageView imageInfo = new ImageView(new Image("file:img/info.png"));
         imageInfo.setFitWidth(40);
         imageInfo.setFitHeight(40);
         this.boutonInfo.setGraphic(imageInfo);
@@ -303,8 +301,14 @@ public class Pendu extends Application {
      * charge les images à afficher en fonction des erreurs
      */
     private void chargerImages(){
+        //for (int i=0; i<this.modelePendu.getNbErreursMax()+1; i++){
+        //    this.lesImages.add(new Image("img/pendu"+i+".png"));
+        //}
+
         for (int i=0; i<this.modelePendu.getNbErreursMax()+1; i++){
-            this.lesImages.add(new Image("pendu"+i+".png"));
+            File file = new File("img/pendu"+i+".png");
+            System.out.println(file.toURI().toString());
+            this.lesImages.add(new Image(file.toURI().toString()));
         }
     }
 
@@ -320,10 +324,7 @@ public class Pendu extends Application {
         this.panelCentral.getChildren().add(this.fenetreJeu());
     }
     
-    public void modeParametres(){
-        this.panelCentral.getChildren().clear();
-    }
-
+    
     /** lance une partie */
     public void lancePartie(){
         this.partieEnCours=true;
@@ -446,6 +447,18 @@ public class Pendu extends Application {
         alert.setTitle("Partie finie");
         alert.setHeaderText(null);
         alert.setContentText("Dommage, vous avez perdu ! Le mot était " + this.modelePendu.getMotATrouve()+".");
+        return alert;
+    }
+
+    /**
+     * Permet de créer une pop-up pour afficher les paramètres
+     * @return Une pop-up avec un message et un bouton pour fermer la pop-up
+     */
+    public Alert modeParametres(){
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Parametres");
+        alert.setHeaderText(null);
+        alert.setContentText("Ici on retrouve les paramètres");
         return alert;
     }
 

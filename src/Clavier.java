@@ -32,7 +32,7 @@ public class Clavier extends TilePane{
             bouton.setPrefSize(50, 50);
             bouton.setOnAction(actionTouches);
             bouton.setShape(new Circle(3));
-
+            this.clavier = new ArrayList<Button>();
             this.clavier.add(bouton);
             this.getChildren().add(bouton);
         }

@@ -21,7 +21,8 @@ public class RetourAccueil implements EventHandler<ActionEvent> {
      * @param vuePendu vue du jeu
      */
     public RetourAccueil(MotMystere modelePendu, Pendu vuePendu) {
-        // A implémenter
+        this.modelePendu = modelePendu;
+        this.vuePendu = vuePendu;
     }
 
 
@@ -32,5 +33,14 @@ public class RetourAccueil implements EventHandler<ActionEvent> {
     @Override
     public void handle(ActionEvent actionEvent) {
         // A implémenter
+        Optional<ButtonType> reponse = this.vuePendu.popUpPartieEnCours().showAndWait(); // on lance la fenêtre popup et on attends la réponse
+        // si la réponse est oui
+        if (reponse.isPresent() && reponse.get().equals(ButtonType.YES)){
+            System.out.println("Ok !");
+            vuePendu.modeAccueil();
+        }
+        else{
+            System.out.println("D'ac !");
+        }
     }
 }

@@ -7,11 +7,6 @@ import java.util.Optional;
  * Contrôleur à activer lorsque l'on clique sur le bouton Accueil
  */
 public class ControlleurRetourAccueil implements EventHandler<ActionEvent> {
-
-    /**
-     * modèle du jeu
-     */
-    private MotMystere modelePendu;
     /**
      * vue du jeu
      **/
@@ -23,7 +18,6 @@ public class ControlleurRetourAccueil implements EventHandler<ActionEvent> {
      * @param vuePendu vue du jeu
      */
     public ControlleurRetourAccueil(MotMystere modelePendu, Pendu vuePendu) {
-        this.modelePendu = modelePendu;
         this.vuePendu = vuePendu;
     }
 

@@ -3,8 +3,10 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
+import javafx.scene.layout.HBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.TextAlignment;
+import javafx.stage.Stage;
 
 
 /**
@@ -24,13 +26,22 @@ public class Chronometre extends Text{
      */
     private ControleurChronometre actionTemps;
 
+    private Text temps;
+
     /**
      * Constructeur permettant de créer le chronomètre
      * avec un label initialisé à "0:0:0"
-     * Ce constructeur créer la Timeline, la KeyFrame et le contrôleur
+     * Ce constructeur crée la Timeline, la KeyFrame et le contrôleur
      */
     public Chronometre(){
-        // A implémenter
+        setFont(Font.font("Arial", 20));
+        setTextAlignment(TextAlignment.CENTER);
+        this.actionTemps = new ControleurChronometre(this);
+        this.keyFrame = new KeyFrame(Duration.millis(1000), actionTemps);
+        this.temps = new Text("0");
+        this.timeline = new Timeline(keyFrame);
+        timeline.setCycleCount(Timeline.INDEFINITE);
+
     }
 
     /**
@@ -40,26 +51,33 @@ public class Chronometre extends Text{
      */
     public void setTime(long tempsMillisec){
         // A implémenter
+        this.temps = new Text(Long.toString(tempsMillisec));
+        HBox root = new HBox(5);
+        root.getChildren().addAll(new Text("Il s’est écoulé"),
+        temps,
+        new Text("secondes"));
     }
-
+    public Text getTime(){
+        return this.temps;
+    }
     /**
      * Permet de démarrer le chronomètre
      */
-    public void start(){
-        // A implémenter
+    public void start(Stage primaryStage) {
+        timeline.play();
     }
 
     /**
      * Permet d'arrêter le chronomètre
      */
     public void stop(){
-        // A implémenter
+        timeline.stop();
     }
 
     /**
      * Permet de remettre le chronomètre à 0
      */
     public void resetTime(){
-        // A implémenter
+        setTime(0);
     }
 }

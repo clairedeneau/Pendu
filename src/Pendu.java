@@ -82,6 +82,8 @@ public class Pendu extends Application {
      * initialise les attributs (créer le modèle, charge les images, crée le chrono ...)
      */
     private boolean partieEnCours;
+
+    private Button boutonInfo;
     
     /**
      * @return si la partie est en cours ou non
@@ -118,30 +120,73 @@ public class Pendu extends Application {
     /**
      * @return le panel contenant le titre du jeu
      */
-    private Pane titre(){
-        // A implementer          
-        Pane banniere = new Pane();
+    private BorderPane titre(){      
+        BorderPane banniere = new BorderPane();
+        Text text = new Text("Jeu du pendu");
+        text.setFont(new Font(30));
+        text.setTextAlignment(TextAlignment.CENTER);
+        banniere.setLeft(text);
+        HBox hbox= new HBox();
+        hbox.getChildren().add(this.boutonMaison);
+        hbox.getChildren().add(this.boutonParametres);
+        hbox.getChildren().add(this.boutonInfo);
+        hbox.setSpacing(10);
+        banniere.setRight(hbox);
+        banniere.setPadding(new Insets(10, 10, 10, 10));
+        banniere.setBackground(new Background(new BackgroundFill(Color.LIGHTBLUE, CornerRadii.EMPTY, Insets.EMPTY)));
         return banniere;
     }
 
-    // /**
+    //** C'est pour toi Claire, Cadeau 
      // * @return le panel du chronomètre
      // */
-    // private TitledPane leChrono(){
+    private TitledPane leChrono(){
         // A implementer
-        // TitledPane res = new TitledPane();
-        // return res;
+        TitledPane res = new TitledPane();
+        return res;
     // }
 
     // /**
      // * @return la fenêtre de jeu avec le mot crypté, l'image, la barre
      // *         de progression et le clavier
      // */
-    // private Pane fenetreJeu(){
-        // A implementer
-        // Pane res = new Pane();
-        // return res;
-    // }
+    private Pane fenetreJeu(){
+        BorderPane res = new BorderPane();
+        BorderPane border = new BorderPane();
+        VBox gauche = new VBox();
+        VBox droite = new VBox();
+        this.modelePendu.setMotATrouver();
+        this.motCrypte.setText(this.modelePendu.getMotCrypte());
+        this.leNiveau = new Text("Niveau :" + this.niveaux.get(modelePendu.getNiveau()));
+
+        //Construction de la partie gauche
+        this.motCrypte.setFont(new Font(30));
+        gauche.getChildren().addAll(this.motCrypte, this.dessin, this.pg, this.clavier);
+        gauche.setSpacing(10);
+        gauche.setAlignment(Pos.CENTER);
+        gauche.setPadding(new Insets(10, 10, 10 ,10));
+        gauche.setPrefSize(400, 800);
+
+        //Construction de la partie droite
+        Button nouveauMot = new Button("nouveau mot");
+        nouveauMot.setOnAction(new ControleurLancerPartie(modelePendu, this));
+        this.leNiveau = new Text("Niveau :" + this.niveaux.get(modelePendu.getNiveau()));
+        this.leNiveau.setFont(new Font(25));
+        droite.getChildren().addAll(this.leNiveau, this.leChrono(), nouveauMot);
+
+        //Desactivation et Activation des Boutons 
+        this.boutonParametres.setDisable(true);
+        this.boutonMaison.setDisable(false);
+
+        //Construction de la fenêtre de jeu
+        border.setLeft(gauche);
+        border.setRight(droite);
+        border.setPadding(new Insets(10, 10, 10, 10));
+        res.setCenter(border);
+        this.majAffichage();
+
+        return border;
+    }
 
     // /**
      // * @return la fenêtre d'accueil sur laquelle on peut choisir les paramètres de jeu

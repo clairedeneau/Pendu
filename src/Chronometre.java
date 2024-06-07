@@ -38,6 +38,7 @@ public class Chronometre extends Text{
         setTextAlignment(TextAlignment.CENTER);
         this.actionTemps = new ControleurChronometre(this);
         this.keyFrame = new KeyFrame(Duration.millis(1000), actionTemps);
+        this.temps = new Text("0");
         this.timeline = new Timeline(keyFrame);
         timeline.setCycleCount(Timeline.INDEFINITE);
 
@@ -50,17 +51,19 @@ public class Chronometre extends Text{
      */
     public void setTime(long tempsMillisec){
         // A implémenter
-
+        this.temps = new Text(Long.toString(tempsMillisec));
+        HBox root = new HBox(5);
+        root.getChildren().addAll(new Text("Il s’est écoulé"),
+        temps,
+        new Text("secondes"));
     }
-
+    public Text getTime(){
+        return this.temps;
+    }
     /**
      * Permet de démarrer le chronomètre
      */
     public void start(Stage primaryStage) {
-        HBox root = new HBox(5);
-        root.getChildren().addAll(new Text("Il s’est écoulé"),
-        this.temps,
-        new Text("secondes"));
         timeline.play();
     }
 
@@ -68,13 +71,13 @@ public class Chronometre extends Text{
      * Permet d'arrêter le chronomètre
      */
     public void stop(){
-        // A implémenter
+        timeline.stop();
     }
 
     /**
      * Permet de remettre le chronomètre à 0
      */
     public void resetTime(){
-        // A implémenter
+        setTime(0);
     }
 }

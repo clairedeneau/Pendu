@@ -191,11 +191,42 @@ public class Pendu extends Application {
     // /**
      // * @return la fenêtre d'accueil sur laquelle on peut choisir les paramètres de jeu
      // */
-    // private Pane fenetreAccueil(){
-        // A implementer    
-        // Pane res = new Pane();
-        // return res;
-    // }
+    private Pane fenetreAccueil(){
+        BorderPane res = new BorderPane();
+        VBox vb = new VBox();
+        vb.setSpacing(15);
+
+        this.boutonParametres.setDisable(false);
+        this.boutonMaison.setDisable(true);
+        TitledPane tp = new TitledPane();
+        tp.setCollapsible(false);
+        tp.setText("Choisissez votre niveau de difficulté");
+        VBox vbtp = new VBox();
+        RadioButton rb1 = new RadioButton("Facile");
+        RadioButton rb2 = new RadioButton("Moyen");
+        RadioButton rb3 = new RadioButton("Difficile");
+        RadioButton rb4 = new RadioButton("Expert");
+        rb1.setSelected(true);
+        rb1.setOnAction(new ControleurNiveau(this.modelePendu));
+        rb2.setOnAction(new ControleurNiveau(this.modelePendu));
+        rb3.setOnAction(new ControleurNiveau(this.modelePendu));
+        rb4.setOnAction(new ControleurNiveau(this.modelePendu));
+        ToggleGroup niveaux = new ToggleGroup();
+        rb1.setToggleGroup(niveaux);
+        rb2.setToggleGroup(niveaux);
+        rb3.setToggleGroup(niveaux);
+        rb4.setToggleGroup(niveaux);
+        vbtp.getChildren().addAll(rb1, rb2, rb3, rb4);
+        vbtp.setSpacing(10);
+        tp.setContent(vbtp);
+        tp.setPrefSize(750, 150);
+        vb.getChildren().addAll(this.bJouer,tp);
+        vb.setPadding(new Insets(15, 15, 15, 15));
+
+        res.setCenter(vb);
+
+        return res;
+    }
 
     /**
      * charge les images à afficher en fonction des erreurs

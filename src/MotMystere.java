@@ -235,7 +235,7 @@ public class MotMystere {
         }
         this.motCrypte = String.valueOf(aux);
         this.nbLettresRestantes -= nbNouvelles;
-        this.lettresEssayees.add(lettre+"");
+        this.lettresEssayees.add(String.valueOf(lettre));
         // Le nombre d'essais augmente de 1
         this.nbEssais += 1;
         // Si aucune lettre n'a été trouvée, le nombre d'erreurs restante diminue de 1

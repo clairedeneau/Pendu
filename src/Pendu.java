@@ -330,6 +330,7 @@ public class Pendu extends Application {
         this.partieEnCours=true;
         this.modelePendu.setMotATrouver();
         this.clavier.activeTouches();
+        this.chrono.resetTime();
         this.chrono.setTime(0);
         this.pg.setProgress(0);
 
@@ -354,6 +355,7 @@ public class Pendu extends Application {
         
         //Désactivation des touches déjà essayées
         this.clavier.desactiveTouches(this.modelePendu.getLettresEssayees());
+        System.out.println(this.modelePendu.getLettresEssayees());
         
         //Affiche les différents messages en fonction de l'état de la partie
         if (this.modelePendu.gagne()){

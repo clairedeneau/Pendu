@@ -24,6 +24,6 @@ public class ControleurParametre implements EventHandler<ActionEvent> {
      */
     @Override
     public void handle(ActionEvent actionEvent) {
-        this.appliPendu.modeParametres().showAndWait();
+        this.appliPendu.modeParametres();
     }
 }

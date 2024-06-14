@@ -90,6 +90,8 @@ public class Pendu extends Application {
      */
     private boolean partieEnCours;
 
+    private BorderPane banniere;
+
     /**
      * initialise les attributs (créer le modèle, charge les images, crée le chrono ...)
      */
@@ -163,6 +165,10 @@ public class Pendu extends Application {
         return this.partieEnCours;
     }
 
+    public BorderPane getBanniere(){
+        return this.banniere;
+    }
+
     /**
      * débute ou arrête la partie
      */
@@ -185,7 +191,7 @@ public class Pendu extends Application {
      */
     private BorderPane titre(){
         // A implementer          
-        BorderPane banniere = new BorderPane();
+        this.banniere = new BorderPane();
         Text text = new Text("Jeu du Pendu");
         text.setFont(new Font(30));
         text.setTextAlignment(TextAlignment.CENTER);
@@ -297,6 +303,33 @@ public class Pendu extends Application {
         return res;
     }
 
+    private Pane fenetreParam(){
+        BorderPane res = new BorderPane();
+        VBox vb = new VBox();
+        vb.setSpacing(15);
+
+        this.boutonParametres.setDisable(true);
+        this.boutonMaison.setDisable(false);
+        TitledPane tp = new TitledPane();
+        tp.setCollapsible(false);
+        tp.setText("Choisissez la couleur du bandeau");
+        VBox vbtp = new VBox();
+        ColorPicker cp = new ColorPicker(Color.BLUE);
+        vbtp.getChildren().add(cp);
+        ControleurCouleur contc = new ControleurCouleur(this, cp);
+        cp.setOnAction(contc);
+        vbtp.setSpacing(10);
+        tp.setContent(vbtp);
+        tp.setPrefSize(750, 150);
+        vb.getChildren().add(tp);
+        vb.setPadding(new Insets(15, 15, 15, 15));
+
+        res.setCenter(vb);
+
+        return res;
+    }
+
+
     /**
      * charge les images à afficher en fonction des erreurs
      */
@@ -322,6 +355,16 @@ public class Pendu extends Application {
         this.panelCentral.getChildren().clear();
         this.chrono.start();
         this.panelCentral.getChildren().add(this.fenetreJeu());
+    }
+
+        /**
+     * Permet de créer une pop-up pour afficher les paramètres
+     * @return Une pop-up avec un message et un bouton pour fermer la pop-up
+     */
+    public void modeParametres(){
+        this.panelCentral.getChildren().clear();
+        this.chrono.stop();
+        this.panelCentral.getChildren().add(this.fenetreParam());
     }
     
     
@@ -449,18 +492,6 @@ public class Pendu extends Application {
         alert.setTitle("Partie finie");
         alert.setHeaderText(null);
         alert.setContentText("Dommage, vous avez perdu ! Le mot était " + this.modelePendu.getMotATrouve()+".");
-        return alert;
-    }
-
-    /**
-     * Permet de créer une pop-up pour afficher les paramètres
-     * @return Une pop-up avec un message et un bouton pour fermer la pop-up
-     */
-    public Alert modeParametres(){
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Parametres");
-        alert.setHeaderText(null);
-        alert.setContentText("Ici on retrouve les paramètres");
         return alert;
     }
 
